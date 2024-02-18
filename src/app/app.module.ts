@@ -20,7 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminModule,
     UIModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [ { provide: 'root', useClass: AlertifyService }], // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
   bootstrap: [AppComponent]
