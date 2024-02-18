@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<mat-drawer-container class="admin-container"> <!--Bu kisim angular/material dan alinda site icindeki api kismintaki import linki kullanilmak isteene katmanin modulune import edilmelidir!-->
+    <mat-drawer mode="side" opened class="admin-left-border"><app-sidebar></app-sidebar></mat-drawer>
+    <mat-drawer-content> 
+      <router-outlet> </router-outlet> <!--Sidebar tiklaninca sagta istenilen yeri acmak icin render ediyoruz-->
+    </mat-drawer-content>
+</mat-drawer-container>
+  
+  <app-footer></app-footer>
+
+
+<!--  
+  <router-outlet></router-outlet>  
+  Bu render metodu mvc'deki render body gibidir. Kullanilan dizindeki modulde RouterModule ekli degilse hata verir
+ -->
