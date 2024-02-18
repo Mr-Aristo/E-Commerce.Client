@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any //jquery islemleri icin kullanacagiz.
 @Component({
   selector: 'app-root',
@@ -7,6 +8,9 @@ declare var $: any //jquery islemleri icin kullanacagiz.
 })
 export class AppComponent {
   title = 'E-Commerce.Client';
+  constructor(private toastr: ToastrService){
+    toastr.success("Toastr Not.","Notification")
+  }
 }
 
 // $(document).ready(()=>
