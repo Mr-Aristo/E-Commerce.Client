@@ -28,7 +28,7 @@ export class AlertifyService {
 
 }
 
-export class AlertifyOptions {//TS de class elemanlarinin bir default degeri olmak zorundadir,angular kati kontrol.
+export class AlertifyOptions {//TS de class elemanlarinin bir default degeri olmak zorundadir,angular kati kontrol. tsconfig.json da "strict" false ile kapatilabilir, 
   messageType: MessageType = MessageType.Message ;
   position: Positions = Positions.ButtomLeft;
   delay : number = 3;

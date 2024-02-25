@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 declare var $: any //jquery islemleri icin kullanacagiz.
 @Component({
   selector: 'app-root',
@@ -8,10 +9,14 @@ declare var $: any //jquery islemleri icin kullanacagiz.
 })
 export class AppComponent {
   title = 'E-Commerce.Client';
-  constructor(private toastr: ToastrService){
-    this.toastr.success('dsa','dasdsasadadddas');
+  constructor(private customToastr: CustomToastrService) {
+    //this.customToastr.message('test', 'Baslik', ToastrMessageType.Success,ToastrPosition.BottomFullWidth);
+    this.customToastr.message('test', 'Baslik', {
+      MessageType: ToastrMessageType.Success,
+      Position: ToastrPosition.BottomFullWidth,
+    });
   }
 }
 
-// $(document).ready(()=>
+// $(document).ready(()=> npm install ngx-spinner --save
 // alert("jquery works!"))
