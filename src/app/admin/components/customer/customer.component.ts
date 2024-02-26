@@ -9,7 +9,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 })
 export class CustomerComponent extends BaseComponent implements OnInit {
 
-  constructor(spinner: NgxSpinnerService) { // basecomp  contratiri  parametre aliyor. o yizden burdan degerr yollamaliyiz. C# da public CustomerWriteRepository(ECommerceAPIContext context) : base(context)  keyword ile js de ise super ile yollanir.
+  constructor(spinner: NgxSpinnerService) { // basecomp  constructor  parametre aliyor. o yizden burdan degerr yollamaliyiz. C# da public CustomerWriteRepository(ECommerceAPIContext context) : base(context)  keyword ile js de ise super ile yollanir.
     super(spinner);
   }
 
