@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertifyService } from './services/admin/alertify.service';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
+    HttpClientModule
 
   ],
-  providers: [ { provide: 'root', useClass: AlertifyService }], // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
+  providers: [
+    // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
+  {provide: 'root', useClass: AlertifyService },
+  //API islemi icin kullanilacak olan baseURl'i tanimmladik. @inject ile baseurl i cekicez.
+  {provide:"baseUrl", useValue: "https://localhost:7207/api", multi: true}
+], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

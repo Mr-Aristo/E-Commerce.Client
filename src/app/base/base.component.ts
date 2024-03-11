@@ -26,7 +26,8 @@ export class BaseComponent {
 }
 
 export enum SpinnerType {
-  BallAtom = 's1', //app.html icindeki  ngx name's1'
+  //app.html icindeki  ngx name's1'
+  BallAtom = 's1', 
   SquareJellyBox = 's2'
 
 }
