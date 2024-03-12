@@ -10,13 +10,13 @@ export class HttpClientService {
   constructor(private httpClient: HttpClient, @Inject("baseUrl") private baseUrl: string) { }
 
   //Burda requestParameter doluysa onu degilde @inject ile gelen ana moduldeki url i kullan seklinde sartladik.
-  private URL(requestParameter: Partial<RequestParameters>): string {
-    // `${}` string interpolation 
+   private URL(requestParameter: Partial<RequestParameters>): string {
+    // Use ternary operators to conditionally include parts of the URL
     return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}
     /${requestParameter.controller}
     ${requestParameter.action ? `/${requestParameter.action}` : ""}`;
     /*Buradaki sartin amaci eger action yoksa / koymamasi varsa / ile koymmasi*/
-  }
+}
 
   /*Id parametresi genel bir islem olmadigi icin ayri olark verdik*/
   public get<T>(requestParameter: Partial<RequestParameters>, id?: string) {
@@ -24,16 +24,16 @@ export class HttpClientService {
     let url: string = "";
 
     if (requestParameter.fullEndPoint) {
-      url = requestParameter.fullEndPoint;
+        url = requestParameter.fullEndPoint;
     }
     else {
-      /*id varsa id kullan yoksa bos gec sarti. string interpolation*/
-      url = `${this.URL(requestParameter)}/${id ? `/${id}`: ""}`;
+            /*id varsa id kullan yoksa bos gec sarti. string interpolation*/
+        url = `${this.URL(requestParameter)}${id ? `/${id}` : ""}`;
     }
 
-    return this.httpClient.get<T>(url,{headers:requestParameter.headers});
+    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+}
 
-  }
 
   post() {
 

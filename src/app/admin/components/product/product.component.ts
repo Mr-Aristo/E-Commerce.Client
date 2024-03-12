@@ -23,7 +23,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
 
     this.httpClientService.get({
-      controller: "products"
+      controller: "testcontroller/products"
     }).subscribe(data => console.log(data));
 
   }

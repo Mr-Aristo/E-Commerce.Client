@@ -20,7 +20,7 @@ export class AppComponent {
 }
 
 /*CORS icin olusturdugumuz js kodu. Cors bu yonlendirmeyi engeller. API den ayar yapilmmamsi gerek */
-$.get("https://localhost:7207/api/testcontroller/order",data=>{
+$.get("https://localhost:7207/api/testcontroller/products",data=>{
   console.log(data);
 })
 
