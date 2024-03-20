@@ -30,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
   {provide: 'root', useClass: AlertifyService },
   //API islemi icin kullanilacak olan baseURl'i tanimmladik. @inject ile baseurl i cekicez.
-  {provide:"baseUrl", useValue: "https://localhost:7207/api", multi: true}
+  { provide: "baseUrl", useValue: "https://localhost:7207/api", multi: true }
 ], 
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,11 @@ export class HttpClientService {
   constructor(private httpClient: HttpClient, @Inject("baseUrl") private baseUrl: string) { }
 
   //Burda requestParameter doluysa onu degilde @inject ile gelen ana moduldeki url i kullan seklinde sartladik.
-   private URL(requestParameter: Partial<RequestParameters>): string {
+  private URL(requestParameter: Partial<RequestParameters>): string {
     // Use ternary operators to conditionally include parts of the URL
-    return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}
-    /${requestParameter.controller}
-    ${requestParameter.action ? `/${requestParameter.action}` : ""}`;
+    return `${requestParameter.baseUrl || this.baseUrl}/${requestParameter.controller}${requestParameter.action ? `/${requestParameter.action}` : ""}`;
     /*Buradaki sartin amaci eger action yoksa / koymamasi varsa / ile koymmasi*/
-}
+  }
 
   /*Id parametresi genel bir islem olmadigi icin ayri olark verdik*/
   public get<T>(requestParameter: Partial<RequestParameters>, id?: string) {
@@ -24,27 +23,53 @@ export class HttpClientService {
     let url: string = "";
 
     if (requestParameter.fullEndPoint) {
-        url = requestParameter.fullEndPoint;
+      url = requestParameter.fullEndPoint;
     }
     else {
-            /*id varsa id kullan yoksa bos gec sarti. string interpolation*/
-        url = `${this.URL(requestParameter)}${id ? `/${id}` : ""}`;
+      /*id varsa id kullan yoksa bos gec sarti. string interpolation*/
+      url = `${this.URL(requestParameter)}${id ? `/${id}` : ""}`;
     }
 
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
-}
+  }
 
 
-  post() {
+
+
+  post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> { // Tip guvenligi saglamak adina T tipinide partial olarak ayarladik.
+    let url: string = "";
+
+    if (requestParameter.fullEndPoint) {
+      url = requestParameter.fullEndPoint;
+    } else {
+      url = `${this.URL(requestParameter)}`;
+    }
+    return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
+  }
+
+  //Update islemi bodyden saglanacagi icin id parametre olarak alinmadi.
+  put<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> {
+
+    let url: string = "";
+
+    if (requestParameter.fullEndPoint) {
+      url = requestParameter.fullEndPoint;
+    } else {
+      url = `${this.URL(requestParameter)}`;
+    }
+    return this.httpClient.put<T>(url, body, { headers: requestParameter.headers });
 
   }
 
-  put() {
+  delete<T>(requestParameter: Partial<RequestParameters>, id: string): Observable<T> {
+    let url: string = "";
 
-  }
-
-  delete() {
-
+    if (requestParameter.fullEndPoint) {
+      url = requestParameter.fullEndPoint;
+    } else {
+      url = `${this.URL(requestParameter)}/${id}`;
+    }
+    return this.httpClient.delete<T>(url,{ headers: requestParameter.headers });
   }
 
 
