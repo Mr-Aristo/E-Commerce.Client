@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, createComponent } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { HttpClientService } from 'src/app/services/commmon/http-client.service';
@@ -7,7 +7,10 @@ import { HttpClientService } from 'src/app/services/commmon/http-client.service'
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  /* Standalone da modul olmadigindan bu sekilde import edile bilir. */
+  // standalone: true,
+  // imports: [MatFormFieldModule, MatInputModule, MatSelectModule],
 })
 export class ProductComponent extends BaseComponent implements OnInit {
 
@@ -23,9 +26,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
     //#region  Ts ile Api endpointine sorhular(get,post,put,delete) 
 
-    // this.httpClientService.get({
-    //   controller: "testcontroller/products"
-    // }).subscribe(data => console.log(data));
+    this.httpClientService.get({
+      controller: "testcontroller/products"
+    }).subscribe(data => console.log(data));
 
 
     // this.httpClientService.post({

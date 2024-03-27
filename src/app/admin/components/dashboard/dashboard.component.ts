@@ -17,16 +17,16 @@ export class DashboardComponent extends BaseComponent implements OnInit{
   ngOnInit(): void {//ngOninit icinde cagirilmazsa  alertify kullanamayiz. Yada fonk icinde tanimlanmali.
     
    // this.alertify.message("nottifcation",MessageType.Success,Positions.TopRight,4)
-   this.alertify.message("My sent Message ",{
-    messageType:MessageType.Success,
-    position:Positions.TopRight,
-    delay:4 ,
-  })//{} icindeki data tanimlamasinin Partial sayesinde yaptik.
+  //  this.alertify.message("My sent Message ",{
+  //   messageType:MessageType.Success,
+  //   position:Positions.TopRight,
+  //   delay:4 ,
+  // })//{} icindeki data tanimlamasinin Partial sayesinde yaptik.
 
-    this.alertify.dissmiss 
+    // this.alertify.dissmiss 
 
-    this.showSpinner(SpinnerType.BallAtom);
-    setTimeout(()=>{this.hideSpinner(SpinnerType.BallAtom)},3000)
+    // this.showSpinner(SpinnerType.BallAtom);
+    // setTimeout(()=>{this.hideSpinner(SpinnerType.BallAtom)},3000)
   }
 
 
