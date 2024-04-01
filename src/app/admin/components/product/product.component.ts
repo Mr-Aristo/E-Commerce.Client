@@ -1,7 +1,8 @@
 import { Component, OnInit, createComponent } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { HttpClientService } from 'src/app/services/commmon/http-client.service';
+import { Create_Product } from 'src/app/contracts/product/create_product';
+import { HttpClientService } from 'src/app/services/common/http-client.service';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
     //#region  Ts ile Api endpointine sorhular(get,post,put,delete) 
 
-    this.httpClientService.get({
-      controller: "testcontroller/products"
-    }).subscribe(data => console.log(data));
+    // this.httpClientService.get<Create_Product[]>({
+    //   controller: "testcontroller/products"
+    // }).subscribe(data => console.log(data));
 
 
     // this.httpClientService.post({

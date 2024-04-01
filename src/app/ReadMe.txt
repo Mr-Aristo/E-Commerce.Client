@@ -18,3 +18,6 @@ Kafa karisikligini engellemek amaciyla boyle bir siralama uygulanmali.
 
  burda bir path belirledik. admin/customers gibi bir istek geldiginde customers modulune bagli olan componentleri ototmatikman cagirmis olduk. 
  Bunu adimin comoponents dosyasi icindeki herbir modul icin app.route.module de tanimalamamiz gerekiyor. 
+
+ SERVICE mantigi: Buutun islem yuku servislerde olmali. Componentler icinde sadece servis fonksiyonu cagirilmali. 
+ endpoint islemleri gibi islemler icin ana kaynak service olmali. 
