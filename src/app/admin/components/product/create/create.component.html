@@ -1,19 +1,18 @@
 
 <mat-form-field appearance="fill" class="product-create">
     <mat-label>Product Name</mat-label>
-    <input matInput>
+    <input matInput #txtName> <!--Burdaki #txtName isimlendirme. Isim herhangi birseyt olabilir-->
 </mat-form-field>
 
 <mat-form-field appearance="fill" class="product-create">
     <mat-label>Stock</mat-label>
-    <input matInput type="number" min="0" value="0"> <!-- type; veri tipi   min; min deger  value; default deger -->
+    <input matInput type="number" min="0" value="0" #txtStock> <!-- type; veri tipi   min; min deger  value; default deger -->
 </mat-form-field>
 
 <mat-form-field appearance="fill" class="product-create">
     <mat-label>Price</mat-label>
-    <input matInput type="number" min="0" value="0">
+    <input matInput type="number" min="0" value="0" #txtPrice>
 </mat-form-field>
 
-
-    <button mat-raised-button color="primary" class="product-button-create">Create Product</button>
+    <button mat-raised-button color="primary" class="product-button-create" (click)="create(txtName,txtStock,txtPrice)">Create Product</button>
   

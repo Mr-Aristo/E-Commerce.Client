@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/* Bu serviste parametereler , ile degil objeler araciligiyle gonderildi. Bu kullanim en dogru kullanimdir. */
 export class HttpClientService {
 
   //Inject edilen baseUrl app.modul providers icinde tanimlandi.
@@ -17,6 +19,7 @@ export class HttpClientService {
     /*Buradaki sartin amaci eger action yoksa / koymamasi varsa / ile koymmasi*/
   }
 
+  
   /*Id parametresi genel bir islem olmadigi icin ayri olark verdik*/
   public get<T>(requestParameter: Partial<RequestParameters>, id?: string) {
 
@@ -69,7 +72,7 @@ export class HttpClientService {
     } else {
       url = `${this.URL(requestParameter)}/${id}`;
     }
-    return this.httpClient.delete<T>(url,{ headers: requestParameter.headers });
+    return this.httpClient.delete<T>(url, { headers: requestParameter.headers });
   }
 
 
