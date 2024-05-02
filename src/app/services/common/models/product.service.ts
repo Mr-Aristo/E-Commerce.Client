@@ -33,13 +33,13 @@ export class ProductService {
           });
           erroCallBack(message);
         });
-
   }
+
   /*successCallback ve digeri delegate parametrelerdir */
   /*successCallback geriye birsey dondurmeyen fonksiyon, yine islemin basarili olup olmadiginin kontrolu icin tanimlandi */
   async list(successCallBack?: () => void, erroCallBack?: (errorMessage: string) => void): Promise<List_Products[]> {// async Task<T> gibi burada da Promise<T> seklinde tanimlanmali.
     const promiseData: Promise<List_Products[]> = this.httpClientService.get<List_Products[]>({
-      controller: "testcontroller/products",
+      controller: "testcontroller/productslist",
     }).toPromise(); //promise gelecek olan datayi beklememizi saglar. Task gibi
 
     /*gelen response nin basarili olup olmadigikontrolu */

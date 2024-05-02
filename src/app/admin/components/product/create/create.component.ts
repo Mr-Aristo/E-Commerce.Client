@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/product/create_product';
@@ -13,6 +13,7 @@ import { ProductService } from 'src/app/services/common/models/product.service';
   styleUrl: './create.component.scss'
 })
 export class CreateComponent extends BaseComponent implements OnInit {
+
   constructor(spinner: NgxSpinnerService, private productService: ProductService, private alertify: AlertifyService) {
     super(spinner);
   }
@@ -29,7 +30,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.stock = parseInt(stock.value); //stokc.value string olarak gelir burde int donustu
     create_product.price = parseFloat(price.value);
 
-    
+
 
     //hide spinner servicede createProduct icinde any tipinde tanimlamis oldugumuz deger true oldugunda devereye girecek
     //amac nngx i tekrar service icinde cagirmamak.
@@ -43,13 +44,19 @@ export class CreateComponent extends BaseComponent implements OnInit {
     },
       errorMessage => {
         this.alertify.message(errorMessage, {
-          messageType:MessageType.Error,
-          position:Positions.ButtomRight
+          messageType: MessageType.Error,
+          position: Positions.ButtomRight
         }
         )
       }
     );
 
+    /*burda girilen inpurlari islem bittikten sonra inbox dan sildik.*/
+    name.value = '';
+    stock.value = '';
+    price.value = '';
+
+    
 
   }
 
