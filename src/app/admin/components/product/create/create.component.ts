@@ -21,6 +21,15 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /*
+  Create Componentin ana compu ProductCom.
+  Output ile butona tiklandiignda produccomp araciligiyla listComp tetiklenecek
+  busayede yeni bir urun eklendiginde otomatik listeye eklenecek.
+  Bu eventi bu coponenti referans eden componentte cagiracaz.
+  Product.html icinde.
+   */
+  @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+
   //html inputunu gonmderdigimiz icin turunu bu sekilde tanimladik. #name <- hmtl adi
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.BallAtom);
@@ -40,6 +49,12 @@ export class CreateComponent extends BaseComponent implements OnInit {
         messageType: MessageType.Success,
         position: Positions.ButtomRight
       });
+      /*
+      Event. Ne firlatacaksak onu istiyor.
+      <app-create (createdProduct)="createdProduct($event)">
+      crete_product u $event ile yakaladdik.
+      */
+      this.createdProduct.emit(create_product);
 
     },
       errorMessage => {

@@ -19,7 +19,7 @@ export class HttpClientService {
     /*Buradaki sartin amaci eger action yoksa / koymamasi varsa / ile koymmasi*/
   }
 
-  
+
   /*Id parametresi genel bir islem olmadigi icin ayri olark verdik*/
   public get<T>(requestParameter: Partial<RequestParameters>, id?: string) {
 
@@ -29,8 +29,8 @@ export class HttpClientService {
       url = requestParameter.fullEndPoint;
     }
     else {
-      /*id varsa id kullan yoksa bos gec sarti. string interpolation*/
-      url = `${this.URL(requestParameter)}${id ? `/${id}` : ""}`;
+      /*id varsa id kullan yoksa bos gec sarti. ayni sekilde querystring icinde gecerli. string interpolation*/
+      url = `${this.URL(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
     }
 
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
@@ -45,7 +45,7 @@ export class HttpClientService {
     if (requestParameter.fullEndPoint) {
       url = requestParameter.fullEndPoint;
     } else {
-      url = `${this.URL(requestParameter)}`;
+      url = `${this.URL(requestParameter)} ${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
     }
     return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
   }
@@ -58,7 +58,7 @@ export class HttpClientService {
     if (requestParameter.fullEndPoint) {
       url = requestParameter.fullEndPoint;
     } else {
-      url = `${this.URL(requestParameter)}`;
+      url = `${this.URL(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
     }
     return this.httpClient.put<T>(url, body, { headers: requestParameter.headers });
 
@@ -70,7 +70,7 @@ export class HttpClientService {
     if (requestParameter.fullEndPoint) {
       url = requestParameter.fullEndPoint;
     } else {
-      url = `${this.URL(requestParameter)}/${id}`;
+      url = `${this.URL(requestParameter)}/${id} ${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
     }
     return this.httpClient.delete<T>(url, { headers: requestParameter.headers });
   }
@@ -83,6 +83,7 @@ export class RequestParameters {
   controller?: string;
   action?: string;
   id?: string;
+  queryString?: string;
   headers?: HttpHeaders;
   baseUrl?: string; // baseURl degisme olasiligina karsi olusturuldu
   fullEndPoint?: string;

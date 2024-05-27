@@ -37,18 +37,33 @@ export class ProductService {
 
   /*successCallback ve digeri delegate parametrelerdir */
   /*successCallback geriye birsey dondurmeyen fonksiyon, yine islemin basarili olup olmadiginin kontrolu icin tanimlandi */
-  async list(successCallBack?: () => void, erroCallBack?: (errorMessage: string) => void): Promise<List_Products[]> {// async Task<T> gibi burada da Promise<T> seklinde tanimlanmali.
-    const promiseData: Promise<List_Products[]> = this.httpClientService.get<List_Products[]>({
-      controller: "testcontroller/productslist",
-    }).toPromise(); //promise gelecek olan datayi beklememizi saglar. Task gibi
+  /*page ve size listeletem islemindeki secilen araliga gore veri cekmek icin alinmis parameterelerdir.*/
+  async list(page: number = 0, size: number = 5, successCallBack?:
+    () => void, erroCallBack?: (errorMessage: string) => void):
+    Promise<{ totalCount: number, products: List_Products[] }> {// async Task<T> gibi burada da Promise<T> seklinde tanimlanmali.
+    /*Promise<{ totalCount: number, products: List_Products[] }> bu format apiden gelecek olan format.
+      ERROR : totalCount ve products isimleri jsondan yani apiden gelen
+      isimle ayni olmazsa undefined hatasi aliriz ve verileri fronta cekemeyiz.
+     */
+    try {
+      const promiseData: Promise<{ totalCount: number, products: List_Products[] }> = this.httpClientService.get<{ totalCount: number, products: List_Products[] }>({
+        controller: "testcontroller/productslist",
+        queryString: `page=${page}&size=${size}`  /*s */
+      }).toPromise(); //promise gelecek olan datayi beklememizi saglar. Task gibi
 
-    /*gelen response nin basarili olup olmadigikontrolu */
-    promiseData.then(d => successCallBack()) //try catch gibi. then true ise norm degilse catch. Tanimlanan d gelecek olan veriyle alakali bir param. 
-      .catch((errorResponse: HttpErrorResponse) => erroCallBack(errorResponse.message));//error bir response olacak gicin http response kullanilmali.
+      /*gelen response nin basarili olup olmadigikontrolu */
+      promiseData.then(d => successCallBack()) //try catch gibi. then true ise norm degilse catch. Tanimlanan d gelecek olan veriyle alakali bir param. 
+        .catch((errorResponse: HttpErrorResponse) => erroCallBack(errorResponse.message));//error bir response olacak gicin http response kullanilmali.
 
-    return await promiseData; //await promiseData degerini geri donen veriyi getirir.
+      return await promiseData; //await promiseData degerini geri donen veriyi getirir.
+    }
+    catch (error) {
+      if (erroCallBack) erroCallBack((error as HttpErrorResponse).message); // Call error callback if provided
+      throw error; // Rethrow the error for further handling if needed
+    }
 
   }
+
 }
 /* createProduct
  errorResponse icinde olan sey http response ile hatayi yakaladik ve bu hatayi ozel bir degisken (_error)

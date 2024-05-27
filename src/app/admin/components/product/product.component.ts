@@ -1,8 +1,9 @@
-import { Component, OnInit, createComponent } from '@angular/core';
+import { Component, OnInit, ViewChild, createComponent } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/product/create_product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
+import { ListComponent } from './list/list.component';
 
 
 @Component({
@@ -69,6 +70,14 @@ export class ProductComponent extends BaseComponent implements OnInit {
     //#endregion
 
   }
- 
+
+  /*Ana component Product onun childlari bu tanimlama ile elde edilir. */
+  @ViewChild(ListComponent) listComponent : ListComponent
+  /*Bu yapilanmayla create islemi yapildiginda listeleme guncellenecek. */
+  createdProduct(createdProduct: Create_Product) {
+    this.listComponent.getProducts();
+
+  }
+
 
 }
