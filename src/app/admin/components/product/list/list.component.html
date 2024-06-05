@@ -28,6 +28,21 @@
       <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef width="30"></th>
+      <td mat-cell *matCellDef="let element" class="centered-cell"><img src="../../../../../assets/change.png"></td>
+    </ng-container>
+s
+    <ng-container matColumnDef="delete" >
+      <th mat-header-cell *matHeaderCellDef width="30"></th>
+      <!--data-id="{{element.id}}" bu sekilde kullanip id yi cekmeye calistik alamadik. Assagidaki kullanim dogrusu. Jsondan gelen elementi yani id yi getiriyor-->
+      <!--element. noktadan sonra jsondaki hangi element gelecekse onun ismi yazilmalidir-->
+      <!--<td mat-cell *matCellDef="let element" class="centered-cell"><img src="../../../../../assets/clearIcon.png" [attr.data-id]="element.id" > </td>-->
+
+      <!--burde ise direk event ile id yi cekip gonderdik delete bizim componentde olusturdugumuz fonksiyon-->      
+      <td mat-cell *matCellDef="let element" class="centered-cell"><img src="../../../../../assets/clearIcon.png" (click)="delete(element.id,$event)" > </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
@@ -36,8 +51,8 @@
     (page) bu bir eventdir. Veriyi direk apiden cektigimiz icin listeleme sayisi (5-10-20) 
     degistiginde event firlatarak tekrar sorgu yapacak. Veri eklendiginde liste guncellenecek.
   -->
-  <mat-paginator (page)="pageChanged()"
-  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator (page)="pageChanged()" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
 
   </mat-paginator>
 </div>

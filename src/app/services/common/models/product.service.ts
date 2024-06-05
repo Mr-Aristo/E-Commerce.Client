@@ -64,6 +64,32 @@ export class ProductService {
 
   }
 
+   delete(id:string){
+    //bu kullanimin alternatifi assagida
+    // this.httpClientService.delete({
+    //   controller: "testcontroller/deleteproduct/",
+
+    // },id).subscribe();
+
+    
+    this.httpClientService.delete({
+      // action kismi testcontroller/deleteproduct daki deleteproduct
+      controller: "testcontroller",
+      action: "deleteproduct"
+    }, id).subscribe({
+      next: (response) => { //next: Observable başarılı bir şekilde her yeni değer yaydığında çağrılır.
+        console.log("Delete successful", response);
+      },
+      error: (error) => { // error: Observable bir hata yaydığında çağrılır.
+        console.error("Delete failed", error);
+      }
+    });
+  }
+ /* next ve error burada değişken değil, fonksiyon isimleridir. subscribe metoduna geçirilen nesne, üç isteğe bağlı özellik içerir:
+  next, error ve complete. Bu özellikler, Observable'ın farklı durumlarını ele almak için kullanılır.*/
+
+
+
 }
 /* createProduct
  errorResponse icinde olan sey http response ile hatayi yakaladik ve bu hatayi ozel bir degisken (_error)

@@ -7,6 +7,8 @@ import { List_Products } from 'src/app/contracts/product/list_product';
 import { AlertifyService, MessageType, Positions } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
+//jquery request
+declare var $ : any 
 
 @Component({
   selector: 'app-list',
@@ -26,7 +28,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'creationDate', 'updatedDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'creationDate', 'updatedDate', 'update', 'delete'];
 
   //dataSource: MatTableDataSource<List_Products> = null;
   dataSource: MatTableDataSource<List_Products> = new MatTableDataSource<List_Products>();
@@ -54,11 +56,11 @@ export class ListComponent extends BaseComponent implements OnInit {
       //console.log("Products fetched:", allProducts.products); 
       //console.log("Products fetched:", allProducts.totalCount); 
       this.dataSource = new MatTableDataSource<List_Products>(allProducts.products);
-     // console.log("Data source:", this.dataSource.data);
+      //console.log("Data source:", this.dataSource.data);
 
       /*Bu tanimlama olmadan paginator calismaz*/
       this.paginator.length = allProducts.totalCount;
-     // this.changeDetectorRefs.detectChanges(); // Trigger change detection manually
+      // this.changeDetectorRefs.detectChanges(); // Trigger change detection manually
 
     }
     catch (error) {
@@ -74,6 +76,25 @@ export class ListComponent extends BaseComponent implements OnInit {
   async ngOnInit() { //component ilk yuklendiginde calisacak kisim
     await this.getProducts();
     this.dataSource.paginator = this.paginator;
+  }
+
+  async delete(id, event) {
+    //alert(id);
+    //Budaki amacimiz satiri listeden kaldirmak consolelog da iki parent geldi tr yani row u silmek icin
+    const img: HTMLImageElement = event.srcElement;
+    //console.log(img.parentElement.parentElement);
+    $(img.parentElement.parentElement).fadeOut(2000); //jquery ile row u  animasyon ile siliyoruz.
+    
+
+    try {
+      // alert(id); // Eğer ID'yi kontrol etmek isterseniz bu satırı açabilirsiniz
+      const response = await this.productService.delete(id);
+      
+      console.log("Delete successful", response);
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
+    await this.getProducts();
   }
 }
 
