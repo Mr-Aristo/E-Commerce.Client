@@ -3,6 +3,7 @@ import { HttpClientService } from '../http-client.service';
 import { Create_Product } from 'src/app/contracts/product/create_product';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { List_Products } from 'src/app/contracts/product/list_product';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -64,29 +65,32 @@ export class ProductService {
 
   }
 
-   delete(id:string){
+  async delete(id: string) {
     //bu kullanimin alternatifi assagida
     // this.httpClientService.delete({
     //   controller: "testcontroller/deleteproduct/",
-
     // },id).subscribe();
 
-    
-    this.httpClientService.delete({
+    const deleteObservable : Observable<any> = this.httpClientService.delete<any>({
       // action kismi testcontroller/deleteproduct daki deleteproduct
       controller: "testcontroller",
       action: "deleteproduct"
-    }, id).subscribe({
-      next: (response) => { //next: Observable başarılı bir şekilde her yeni değer yaydığında çağrılır.
-        console.log("Delete successful", response);
-      },
-      error: (error) => { // error: Observable bir hata yaydığında çağrılır.
-        console.error("Delete failed", error);
-      }
-    });
+    }, id); 
+
+    await firstValueFrom(deleteObservable);
+
+    // .subscribe({
+    //   next: (response) => { //next: Observable başarılı bir şekilde her yeni değer yaydığında çağrılır.
+    //     console.log("Delete successful", response);
+    //   },
+    //   error: (error) => { // error: Observable bir hata yaydığında çağrılır.
+    //     console.error("Delete failed", error);
+    //   }
+    // });
+
   }
- /* next ve error burada değişken değil, fonksiyon isimleridir. subscribe metoduna geçirilen nesne, üç isteğe bağlı özellik içerir:
-  next, error ve complete. Bu özellikler, Observable'ın farklı durumlarını ele almak için kullanılır.*/
+  /* next ve error burada değişken değil, fonksiyon isimleridir. subscribe metoduna geçirilen nesne, üç isteğe bağlı özellik içerir:
+   next, error ve complete. Bu özellikler, Observable'ın farklı durumlarını ele almak için kullanılır.*/
 
 
 

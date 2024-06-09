@@ -4,6 +4,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/product/create_product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ListComponent } from './list/list.component';
+import { DeletesDirective } from 'src/app/directives/admin/deletes.directive';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { ListComponent } from './list/list.component';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
   /* Standalone da modul olmadigindan bu sekilde import edile bilir. */
-  // standalone: true,
-  // imports: [MatFormFieldModule, MatInputModule, MatSelectModule],
+   standalone: false,
+ // imports: [DeletesDirective]//[MatFormFieldModule, MatInputModule, MatSelectModule],
 })
 export class ProductComponent extends BaseComponent implements OnInit {
 

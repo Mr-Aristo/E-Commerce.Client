@@ -8,7 +8,7 @@ import { AlertifyService, MessageType, Positions } from 'src/app/services/admin/
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 //jquery request
-declare var $ : any 
+declare var $: any
 
 @Component({
   selector: 'app-list',
@@ -78,23 +78,24 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  async delete(id, event) {
-    //alert(id);
-    //Budaki amacimiz satiri listeden kaldirmak consolelog da iki parent geldi tr yani row u silmek icin
-    const img: HTMLImageElement = event.srcElement;
-    //console.log(img.parentElement.parentElement);
-    $(img.parentElement.parentElement).fadeOut(2000); //jquery ile row u  animasyon ile siliyoruz.
-    
+  /*Directive kullanmadan onceki yapi */
+  // async delete(id, event) {
+  //   //alert(id);
+  //   //Budaki amacimiz satiri listeden kaldirmak consolelog da iki parent geldi tr yani row u silmek icin
+  //   const img: HTMLImageElement = event.srcElement;
+  //   //console.log(img.parentElement.parentElement);
+  //   $(img.parentElement.parentElement).fadeOut(2000); //jquery ile row u  animasyon ile siliyoruz.
 
-    try {
-      // alert(id); // Eğer ID'yi kontrol etmek isterseniz bu satırı açabilirsiniz
-      const response = await this.productService.delete(id);
-      
-      console.log("Delete successful", response);
-    } catch (error) {
-      console.error("Delete failed", error);
-    }
-    await this.getProducts();
-  }
+
+  //   try {
+  //     // alert(id); // Eğer ID'yi kontrol etmek isterseniz bu satırı açabilirsiniz
+  //     const response = await this.productService.delete(id);
+
+  //     console.log("Delete successful", response);
+  //   } catch (error) {
+  //     console.error("Delete failed", error);
+  //   }
+  //   await this.getProducts(); 
+  // }
 }
 

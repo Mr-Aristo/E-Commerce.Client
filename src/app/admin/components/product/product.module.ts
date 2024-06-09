@@ -10,11 +10,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import { DeletesDirective } from 'src/app/directives/admin/deletes.directive';
 @NgModule({
   declarations: [
     ProductComponent,
     CreateComponent,
-    ListComponent
+    ListComponent,
+    DeletesDirective
   ],
   imports: [
     CommonModule,
@@ -26,8 +28,7 @@ import { MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
-    MatPaginatorModule,
-  
+    MatPaginatorModule
   ]
 })
 export class ProductModule { }
