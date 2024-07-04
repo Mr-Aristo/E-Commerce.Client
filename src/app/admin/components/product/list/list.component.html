@@ -42,8 +42,10 @@ s
       <!--[id] ile satirin icindeki idyi aldik. Bu sekilde direvtive icinde kullanabilecez
       element tablo icindeki verinin kendisi. id ye gelen deger Input olarak gelir. directive de kullanimi var.
       -->      
-      <td [id] = "element.id" mat-cell *matCellDef="let element" class="centered-cell" Deletes>
+      <td [id] = "element.id" mat-cell *matCellDef="let element" class="centered-cell" Deletes  (callback)="getProducts()">
         <!--directive (appDeletes) kullandigimis icin assagidaki yapiya ihtiyacimiz yok-->
+        <!--(callback) seklinde bir fonk olusturduk callback herhangi bir isim olabilir. getProducts calismasini istedigimiz
+            componentte olusturulan fonksiyon--->
         <!-- <img src="../../../../../assets/clearIcon.png" (click)="delete(element.id,$event)" > 
        -->
       </td>

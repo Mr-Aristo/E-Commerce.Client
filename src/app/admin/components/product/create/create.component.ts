@@ -66,7 +66,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       }
     );
 
-    /*burda girilen inpurlari islem bittikten sonra inbox dan sildik.*/
+    /*burda girilen inputlari islem bittikten sonra inbox dan sildik.*/
     name.value = '';
     stock.value = '';
     price.value = '';

@@ -34,16 +34,17 @@ export class DeletesDirective {
 
   }
 
-  @Input() id:string; //html deki idyi bu sekilde yakalariz.
+  @Input() id:string; //html deki idyi bu sekilde yakalariz. list.html deki [id] = "element.id" kismi. 
 
   /*Hostlistener tiklanma eventi calistiginda calisacak kisim
   yani td ye tiklanildiginda silme islemi icin gereken mantik calistirilacak.
   */
   @HostListener("click")
   async onClick(){
-    console.log(this.id);
+ 
     const td : HTMLTableCellElement =this.element.nativeElement;
-    await this.productService.delete("");
+    await this.productService.delete(this.id);
+    console.log(this.id);
     $(td.parentElement).fadeOut(2000); //jquery ile row u  animasyon ile siliyoruz.
   }
 }

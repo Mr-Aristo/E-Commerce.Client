@@ -70,15 +70,21 @@ export class ProductService {
     // this.httpClientService.delete({
     //   controller: "testcontroller/deleteproduct/",
     // },id).subscribe();
-
-    const deleteObservable : Observable<any> = this.httpClientService.delete<any>({
+    console.log("productservice deki id = ",id);
+    const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       // action kismi testcontroller/deleteproduct daki deleteproduct
       controller: "testcontroller",
       action: "deleteproduct"
-    }, id); 
+    }, id);
 
-    await firstValueFrom(deleteObservable);
-
+    
+    //await firstValueFrom(deleteObservable);
+    try {
+      const response = await firstValueFrom(deleteObservable);
+      console.log("Delete successful", response);
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
     // .subscribe({
     //   next: (response) => { //next: Observable başarılı bir şekilde her yeni değer yaydığında çağrılır.
     //     console.log("Delete successful", response);
