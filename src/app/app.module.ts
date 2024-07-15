@@ -9,11 +9,12 @@ import { AlertifyService } from './services/admin/alertify.service';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule } from '@angular/common/http';
-
+import { DeleteDialogComponent } from './dialogs/delete/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -24,8 +25,9 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
-
-  ],
+    DeleteDialogComponent,
+    
+   ],
   providers: [
     // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
   {provide: 'root', useClass: AlertifyService },

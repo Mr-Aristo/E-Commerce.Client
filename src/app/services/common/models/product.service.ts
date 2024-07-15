@@ -70,7 +70,7 @@ export class ProductService {
     // this.httpClientService.delete({
     //   controller: "testcontroller/deleteproduct/",
     // },id).subscribe();
-    console.log("productservice deki id = ",id);
+    
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       // action kismi testcontroller/deleteproduct daki deleteproduct
       controller: "testcontroller",

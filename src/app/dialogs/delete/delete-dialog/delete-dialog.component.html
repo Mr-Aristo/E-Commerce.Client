@@ -1,0 +1,7 @@
+<h2 mat-dialog-title> Are you sure to delete this item ? </h2>
+
+<mat-dialog-actions>
+  <button mat-button (click)="close()" cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Delete</button> 
+  <!-- Buradaki data openDialog daki yes no daki data -->
+</mat-dialog-actions>

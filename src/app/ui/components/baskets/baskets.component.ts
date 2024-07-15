@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 
+
 @Component({
   selector: 'app-baskets',
   templateUrl: './baskets.component.html',
@@ -15,7 +16,7 @@ export class BasketsComponent extends BaseComponent implements OnInit {
 
     this.showSpinner(SpinnerType.BallAtom);
 
-    setTimeout(() => { this.hideSpinner(SpinnerType.BallAtom) }, 2000);
+    setTimeout(() => { this.hideSpinner(SpinnerType.BallAtom) }, 1000);
 
   }
 

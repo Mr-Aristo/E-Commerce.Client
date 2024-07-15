@@ -17,7 +17,8 @@ import { RouterModule } from '@angular/router';
     OrderModule,
     CustomerModule,
     DashboardModule,
-    RouterModule
+    RouterModule,
+    
   ],
   exports:[
     ProductModule,

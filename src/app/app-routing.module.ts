@@ -49,3 +49,14 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+/* standalon seklinde rootlama */
+// @NgModule({
+//   declarations: [CustomerComponent],
+//   imports: [
+//     CommonModule,
+//     RouterModule.forChild([
+//       { path: '', component: CustomerComponent, standalone: true }
+//     ])
+//   ]
+// })

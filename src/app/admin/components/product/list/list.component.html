@@ -42,10 +42,22 @@ s
       <!--[id] ile satirin icindeki idyi aldik. Bu sekilde direvtive icinde kullanabilecez
       element tablo icindeki verinin kendisi. id ye gelen deger Input olarak gelir. directive de kullanimi var.
       -->      
-      <td [id] = "element.id" mat-cell *matCellDef="let element" class="centered-cell" Deletes  (callback)="getProducts()">
-        <!--directive (appDeletes) kullandigimis icin assagidaki yapiya ihtiyacimiz yok-->
+      <td mat-cell *matCellDef="let element" class="centered-cell"
+       Deletes  
+       [id] = "element.id"   
+       (callback)="getProducts()"
+       controller="testcontroller/deleteproduct">
+        <!--directive (Deletes) kullandigimis icin assagidaki yapiya ihtiyacimiz yok
+        [id] Input() event
+        contoller Input() string
+        -->
         <!--(callback) seklinde bir fonk olusturduk callback herhangi bir isim olabilir. getProducts calismasini istedigimiz
-            componentte olusturulan fonksiyon--->
+            componentte olusturulan fonksiyon. Bu fonksiyounun output olarak cikmasi tanimladigimiz direktivte @output olarak 
+            directive icinde cagiracagiz "(callback)" isim ayni olmak zorunda. Input olark Id gonderdigimiz gibi output olarak da callback i gonderip
+            getProducts fonksiyonunu cagiriyoruz.Directivede olmak zorunda degil Directive degilde service olabilir, pipe olabilir output
+            olarak cikti alinir
+            
+            --->
         <!-- <img src="../../../../../assets/clearIcon.png" (click)="delete(element.id,$event)" > 
        -->
       </td>

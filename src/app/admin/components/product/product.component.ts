@@ -25,7 +25,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
     this.showSpinner(SpinnerType.BallAtom);
 
-    setTimeout(() => { this.hideSpinner(SpinnerType.BallAtom) }, 1000);
+    setTimeout(() => { this.hideSpinner(SpinnerType.BallAtom) }, 100);
 
     //#region  Ts ile Api endpointine sorhular(get,post,put,delete) 
 
