@@ -40,7 +40,6 @@ export class DeletesDirective {
 
     /*son olarak da manipule edilen elementi assagidaki sekilde render ediyoruz */
     _renderer.appendChild(element.nativeElement, img);
-
   }
 
   @Input() controller: string;//Genel bir yapi kullandigimiz icin bunuda direktifin cagirildigi yerden aliyoruz.
