@@ -36,7 +36,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     action: 'upload', //Bu kisim apide [action] seklinde belirtildi. action benzersiz olmali.
     explanation:'Select the pictures',
     isAdminPage:true,
-    accept:'.pdf,.png, .jpg, .jpeg'
+    accept:'.pdf,.png,.jpg,.jpeg'
   };
 
   //html inputunu gonmderdigimiz icin turunu bu sekilde tanimladik. #name <- hmtl adi

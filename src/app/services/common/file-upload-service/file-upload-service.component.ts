@@ -5,7 +5,7 @@ import { HttpClientService } from '../http-client.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AlertifyService, MessageType, Positions } from '../../admin/alertify.service';
 import { CustomToastOptions, CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
-//Ngx-file-drop
+//Ngx-file-drop openbaseden indirdik! 
 //Bu componentin service mantigiyla kullandigimiz icin service altinda olustu.
 @Component({
   selector: 'app-file-upload-service',
@@ -40,7 +40,7 @@ export class FileUploadServiceComponent {
 
     this.httpClientService.post({
       controller: this.options.controller,
-      action: this.options.accept,
+      action: this.options.action,
       queryString: this.options.queryString,
       headers: new HttpHeaders({ "responseType": "blob" })
 
