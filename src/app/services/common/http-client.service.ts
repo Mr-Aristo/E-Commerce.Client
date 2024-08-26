@@ -38,7 +38,7 @@ export class HttpClientService {
 
 
 
-
+//body gonderilecek verinin kendisidir.
   post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> { // Tip guvenligi saglamak adina T tipinide partial olarak ayarladik.
     let url: string = "";
 

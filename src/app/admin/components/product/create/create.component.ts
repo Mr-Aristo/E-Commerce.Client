@@ -3,6 +3,7 @@ import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/product/create_product';
 import { AlertifyService, MessageType, Positions } from 'src/app/services/admin/alertify.service';
+import { FileUploadOptions } from 'src/app/services/common/file-upload-service/file-upload-service.component';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   /*
   Create Componentin ana compu ProductCom.
   Output ile butona tiklandiignda produccomp araciligiyla listComp tetiklenecek
@@ -29,6 +31,13 @@ export class CreateComponent extends BaseComponent implements OnInit {
   Product.html icinde.
    */
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = { //Disariya gidecegi icin output
+    controller:'testcontroller',
+    action: 'upload', //Bu kisim apide [action] seklinde belirtildi. action benzersiz olmali.
+    explanation:'Select the pictures',
+    isAdminPage:true,
+    accept:'.pdf,.png, .jpg, .jpeg'
+  };
 
   //html inputunu gonmderdigimiz icin turunu bu sekilde tanimladik. #name <- hmtl adi
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
@@ -71,7 +80,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     stock.value = '';
     price.value = '';
 
-    
+
 
   }
 

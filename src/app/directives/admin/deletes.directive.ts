@@ -1,12 +1,9 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2, inject, input } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
 import { HttpClientService } from '../../services/common/http-client.service';
-import { ProductService } from '../../services/common/models/product.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle, } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent, DeleteState } from 'src/app/dialogs/delete/delete-dialog/delete-dialog.component';
 import { AlertifyService, MessageType, Positions } from 'src/app/services/admin/alertify.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CustomToastrService } from 'src/app/services/ui/custom-toastr.service';
-import { BaseComponent } from 'src/app/base/base.component';
 
 declare var $: any; //javascript declare jquery 
 

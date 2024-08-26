@@ -26,14 +26,13 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog/delete-dia
     NgxSpinnerModule,
     HttpClientModule,
     DeleteDialogComponent,
-    
-   ],
+  ],
   providers: [
     // IOS containera singleton nesne olarak atadik. Bu bir DI dir. 
-  {provide: 'root', useClass: AlertifyService },
-  //API islemi icin kullanilacak olan baseURl'i tanimmladik. @inject ile baseurl i cekicez.
-  { provide: "baseUrl", useValue: "https://localhost:7207/api", multi: true }
-], 
+    { provide: 'root', useClass: AlertifyService },
+    //API islemi icin kullanilacak olan baseURl'i tanimmladik. @inject ile baseurl i cekicez.
+    { provide: "baseUrl", useValue: "https://localhost:7207/api", multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
