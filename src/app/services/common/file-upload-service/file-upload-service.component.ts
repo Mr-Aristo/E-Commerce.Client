@@ -5,27 +5,38 @@ import { HttpClientService } from '../http-client.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AlertifyService, MessageType, Positions } from '../../admin/alertify.service';
 import { CustomToastOptions, CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
+import { DialogModule } from 'src/app/dialogs/dialog.module';
+import { MatDialog } from '@angular/material/dialog';
+import { FileUploadDialogComponent } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
 //Ngx-file-drop openbaseden indirdik! 
 //Bu componentin service mantigiyla kullandigimiz icin service altinda olustu.
 @Component({
   selector: 'app-file-upload-service',
   standalone: true,
-  imports: [NgxFileDropModule, CommonModule],
+  imports: [
+    NgxFileDropModule,
+    CommonModule,
+    DialogModule
+  ],
   templateUrl: './file-upload-service.component.html',
   styleUrl: './file-upload-service.component.scss'
 })
+
 export class FileUploadServiceComponent {
   constructor(
     private httpClientService: HttpClientService,
     private alertifyService: AlertifyService,
-    private customToasterService: CustomToastrService
+    private customToasterService: CustomToastrService,
+    private dialog : MatDialog
   ) { }
 
 
   // bu componentin kullanildigi yerde bu sekilde options gonderilir ve input ile alinir.<app-file-upload-service [options]="">
   @Input() options: Partial<FileUploadOptions>;//Partial tur guvenligi icin kullanilir.
   public files: NgxFileDropEntry[];
+  
 
+ 
   public selectedFiles(files: NgxFileDropEntry[]) {
     this.files = files;
     const fileData: FormData = new FormData();
@@ -38,44 +49,60 @@ export class FileUploadServiceComponent {
       });
     }
 
-    this.httpClientService.post({
-      controller: this.options.controller,
-      action: this.options.action,
-      queryString: this.options.queryString,
-      headers: new HttpHeaders({ "responseType": "blob" })
-
-    }, fileData).subscribe(data => {
-
-      const message: string = "Files uploaded successfuly!";
-      if (this.options.isAdminPage) {
-        this.alertifyService.message(message, {
-          messageType: MessageType.Success,
-          position: Positions.TopRight
-        })
+    this.openDialog(()=>{
+      this.httpClientService.post({
+        controller: this.options.controller,
+        action: this.options.action,
+        queryString: this.options.queryString,
+        headers: new HttpHeaders({ "responseType": "blob" })
+  
+      }, fileData).subscribe(data => {
+  
+        const message: string = "Files uploaded successfuly!";
+        if (this.options.isAdminPage) {
+          this.alertifyService.message(message, {
+            messageType: MessageType.Success,
+            position: Positions.TopRight
+          })
+        }
+        else {
+          this.customToasterService.message("Success", message, {
+            MessageType: ToastrMessageType.Success,
+            Position: ToastrPosition.TopRight
+          });
+        }
+      }, (errorResponse: HttpErrorResponse) => {
+        const message: string = "Something went wrong! Files could not uploaded!";
+        if (this.options.isAdminPage) {
+          this.alertifyService.message(message, {
+            messageType: MessageType.Error,
+            position: Positions.TopRight
+          })
+        }
+        else {
+          this.customToasterService.message("Error", message, {
+            MessageType: ToastrMessageType.Error,
+            Position: ToastrPosition.TopRight
+          })
+        }
       }
-      else {
-        this.customToasterService.message("Success", message, {
-          MessageType: ToastrMessageType.Success,
-          Position: ToastrPosition.TopRight
-        });
-      }
-    }, (errorResponse: HttpErrorResponse) => {
-      const message: string = "Something went wrong! Files could not uploaded!";
-      if (this.options.isAdminPage) {
-        this.alertifyService.message(message, {
-          messageType: MessageType.Error,
-          position: Positions.TopRight
-        })
-      }
-      else {
-        this.customToasterService.message("Error", message, {
-          MessageType: ToastrMessageType.Error,
-          Position: ToastrPosition.TopRight
-        })
-      }
-    }
-    );
+      );
+    })    
   }
+  openDialog(afterClose: any): void {
+    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
+
+      data: FileUploadState.Yes,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result == FileUploadState.Yes) {
+        afterClose(); //eger yes ise fonksiyon tetiklenecek.
+      }
+    });
+  }
+  
 }
 
 export class FileUploadOptions {
@@ -85,4 +112,9 @@ export class FileUploadOptions {
   explanation?: string;
   accept?: string;//belirli bir dosya turunu kabul etmek isteyebiliriz. O yuzden var.
   isAdminPage?: boolean = false;
+}
+
+export enum FileUploadState {
+  Yes,
+  No
 }

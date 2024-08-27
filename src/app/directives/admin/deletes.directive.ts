@@ -87,6 +87,7 @@ export class DeletesDirective {
   //afterClose bir callback fonksiyonu.
   openDialog(afterClose: any): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '250px', 
       data: DeleteState.Yes,
     });
 
