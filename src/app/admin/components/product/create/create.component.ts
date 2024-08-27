@@ -33,7 +33,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
   @Output() fileUploadOptions: Partial<FileUploadOptions> = { //Disariya gidecegi icin output
     controller:'testcontroller',
-    action: 'upload', //Bu kisim apide [action] seklinde belirtildi. action benzersiz olmali.
+    action: 'upload', //Bu kisim apide [action] seklinde belirtildi. action benzersiz olmali
     explanation:'Select the pictures',
     isAdminPage:true,
     accept:'.pdf,.png,.jpg,.jpeg'
