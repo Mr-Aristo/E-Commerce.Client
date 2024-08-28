@@ -8,6 +8,9 @@ import { CustomToastOptions, CustomToastrService, ToastrMessageType, ToastrPosit
 import { DialogModule } from 'src/app/dialogs/dialog.module';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadDialogComponent } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogService } from '../dialog.service';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 //Ngx-file-drop openbaseden indirdik! 
 //Bu componentin service mantigiyla kullandigimiz icin service altinda olustu.
 @Component({
@@ -27,7 +30,9 @@ export class FileUploadServiceComponent {
     private httpClientService: HttpClientService,
     private alertifyService: AlertifyService,
     private customToasterService: CustomToastrService,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
   ) { }
 
 
@@ -49,7 +54,11 @@ export class FileUploadServiceComponent {
       });
     }
 
-    this.openDialog(()=>{
+    this.dialogService.openDialog({
+       componentType: FileUploadDialogComponent,
+      data: FileUploadState.Yes,
+      afterClosed: () => {
+      this.spinner.show(SpinnerType.BallAtom)
       this.httpClientService.post({
         controller: this.options.controller,
         action: this.options.action,
@@ -87,23 +96,23 @@ export class FileUploadServiceComponent {
         }
       }
       );
-    })    
+    }})    
   }
-  openDialog(afterClose: any): void {
-    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
+//   openDialog(afterClose: any): void {
+//     const dialogRef = this.dialog.open(FileUploadDialogComponent, {
 
-      data: FileUploadState.Yes,
-    });
+//       data: FileUploadState.Yes,
+//     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result == FileUploadState.Yes) {
-        afterClose(); //eger yes ise fonksiyon tetiklenecek.
-      }
-    });
-  }
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('The dialog was closed');
+//       if (result == FileUploadState.Yes) {
+//         afterClose(); //eger yes ise fonksiyon tetiklenecek.
+//       }
+//     });
+//   }
   
-}
+ }
 
 export class FileUploadOptions {
   controller?: string;

@@ -1,9 +1,10 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { HttpClientService } from '../../services/common/http-client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent, DeleteState } from 'src/app/dialogs/delete/delete-dialog/delete-dialog.component';
 import { AlertifyService, MessageType, Positions } from 'src/app/services/admin/alertify.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from 'src/app/services/common/dialog.service';
 
 declare var $: any; //javascript declare jquery 
 
@@ -23,6 +24,7 @@ export class DeletesDirective {
     private httpClientService: HttpClientService,
     public dialog: MatDialog,
     private alertifyService: AlertifyService,
+    private dialogService: DialogService
   ) {
     /*td icinde img yollamak icin bir html elementi yaratiyoruz.
     assagidaki <img> kismini js ile tanimlanmasi bu sekilde.
@@ -47,37 +49,41 @@ export class DeletesDirective {
   */
   @HostListener("click")
   async onClick() {
-    this.openDialog(async () => { // ()=> {} bu callback fonskiyonu eger islem yes ise bu sekilde onCLick tetiklenecek.
-      //onClick asybc bu yuzden callback de async olmali
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      await this.httpClientService.delete({
-        controller: this.controller
-      }, this.id).subscribe(data => {
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => { // ()=> {} bu callback fonskiyonu eger islem yes ise bu sekilde onCLick tetiklenecek.
+        //onClick asybc bu yuzden callback de async olmali
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        await this.httpClientService.delete({
+          controller: this.controller
+        }, this.id).subscribe(data => {
 
-        $(td.parentElement).animate({
-          opacity: 0,
-          left: "+=50",
-          height: "toggle"
-        }, 700,
-          () => {
-            this.callback.emit();// EventEmit turundeki fonksiyonlari bu sekilde tetikleriz.
-            this.alertifyService.message("Product Deleted!", //options parametresi
+          $(td.parentElement).animate({
+            opacity: 0,
+            left: "+=50",
+            height: "toggle"
+          }, 700,
+            () => {
+              this.callback.emit();// EventEmit turundeki fonksiyonlari bu sekilde tetikleriz.
+              this.alertifyService.message("Product Deleted!", //options parametresi
+                {
+                  messageType: MessageType.Success,
+                  position: Positions.TopRight
+                }
+              )
+            })//jquery ile row u  animasyon ile siliyoruz.
+        }, //error parametresi
+          (errorResponse: HttpErrorResponse) => {
+            this.alertifyService.message("Product could not deleted. Something went wrong.", //options parametresi
               {
-                messageType: MessageType.Success,
+                messageType: MessageType.Error,
                 position: Positions.TopRight
               }
             )
-          })//jquery ile row u  animasyon ile siliyoruz.
-      }, //error parametresi
-        (errorResponse: HttpErrorResponse) => {
-          this.alertifyService.message("Product could not deleted. Something went wrong.", //options parametresi
-            {
-              messageType: MessageType.Error,
-              position: Positions.TopRight
-            }
-          )
-        }
-      );
+          }
+        );
+      }
     });
   }
 
@@ -85,19 +91,19 @@ export class DeletesDirective {
   //openDialogu tetiklendikten ve assagidaki sart Yes ise onClickdeki silme islemi gerceklestirecegiz.
   //Ya yukardaki islemi asagiya tasiyacaz yada callback fonksiyonu ile parametre olarak gececegiz.
   //afterClose bir callback fonksiyonu.
-  openDialog(afterClose: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '250px', 
-      data: DeleteState.Yes,
-    });
+  // openDialog(afterClose: any): void {
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     width: '250px', 
+  //     data: DeleteState.Yes,
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result == DeleteState.Yes) {
-        afterClose(); //eger yes ise fonksiyon tetiklenecek.
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     if (result == DeleteState.Yes) {
+  //       afterClose(); //eger yes ise fonksiyon tetiklenecek.
+  //     }
+  //   });
+  // }
 
 }
 
