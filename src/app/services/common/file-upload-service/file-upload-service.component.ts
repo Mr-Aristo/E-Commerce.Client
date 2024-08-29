@@ -58,7 +58,7 @@ export class FileUploadServiceComponent {
        componentType: FileUploadDialogComponent,
       data: FileUploadState.Yes,
       afterClosed: () => {
-      this.spinner.show(SpinnerType.BallAtom)
+      //this.spinner.show(SpinnerType.BallAtom)
       this.httpClientService.post({
         controller: this.options.controller,
         action: this.options.action,
